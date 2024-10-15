@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EXODEES</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="content-box">
+        <h1 class="title">Exodees</h1>
+        <div class="login-box">
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" name="username" required>
+                
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Ingresar</button>
+            </form>
+            <p id="loginMessage"></p>
+            <p>¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Verificar si el usuario existe en localStorage
+            const storedPassword = localStorage.getItem(username);
+
+            if (!storedPassword) {
+                document.getElementById('loginMessage').textContent = 'Usuario no encontrado.';
+            } else if (storedPassword === password) {
+                // Iniciar sesión exitoso (puedes redirigir al dashboard)
+                document.getElementById('loginMessage').textContent = 'Inicio de sesión exitoso. Redirigiendo...';
+                setTimeout(() => {
+                    window.location.href = 'Inicio.html'; // Redirigir a la página principal
+                }, 1000);
+            } else {
+                document.getElementById('loginMessage').textContent = 'Contraseña incorrecta.';
+            }
+        });
+    </script>
+</body>
+</html>
